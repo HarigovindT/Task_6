@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <div class="error" id="nameError"></div>
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email">
+      <div class="error" id="emailError"></div>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+      <div class="error" id="messageError"></div>
+
+      <button type="submit">Submit</button>
+      <div class="success" id="successMessage"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      document.getElementById('nameError').innerText = '';
+      document.getElementById('emailError').innerText = '';
+      document.getElementById('messageError').innerText = '';
+      document.getElementById('successMessage').innerText = '';
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      let valid = true;
+
+      if (name === '') {
+        document.getElementById('nameError').innerText = 'Name is required.';
+        valid = false;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email === '') {
+        document.getElementById('emailError').innerText = 'Email is required.';
+        valid = false;
+      } else if (!emailPattern.test(email)) {
+        document.getElementById('emailError').innerText = 'Invalid email format.';
+        valid = false;
+      }
+
+      if (message === '') {
+        document.getElementById('messageError').innerText = 'Message is required.';
+        valid = false;
+      }
+
+      if (valid) {
+        document.getElementById('successMessage').innerText = 'Form submitted successfully!';
+        document.getElementById('contactForm').reset();
+      }
+    });
+  </script>
+</body>
+</html>
